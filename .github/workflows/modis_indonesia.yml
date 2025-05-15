@@ -19,7 +19,7 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y gdal-bin libgdal-dev
-          pip install numpy rasterio pymodis geopandas requests
+          pip install numpy rasterio pymodis geopandas requests dotenv
 
       - name: Run MODIS Processing
         run: python process_modis_indonesia.py

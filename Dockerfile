@@ -3,7 +3,7 @@ FROM choochootrain/python-gdal:python-3.12-gdal-3.9
 RUN apt-get update && \
     apt-get install -y gdal-bin libgdal-dev gcc && \
     pip install --upgrade pip && \
-    pip install numpy rasterio pymodis geopandas requests
+    pip install numpy rasterio pymodis geopandas requests dotenv
 
 WORKDIR /app
 
