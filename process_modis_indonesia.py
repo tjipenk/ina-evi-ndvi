@@ -2,7 +2,7 @@ import os
 import glob
 import requests
 import tempfile
-from pyModis import downmodis
+from pymodis import downmodis
 import rasterio
 from rasterio.merge import merge
 from rasterio.mask import mask

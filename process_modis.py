@@ -1,6 +1,6 @@
-simport os
+import os
 import requests
-from pyModis import downmodis
+from pymodis import downmodis
 import rasterio
 from rasterio.merge import merge
 import glob
