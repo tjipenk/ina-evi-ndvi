@@ -1,5 +1,5 @@
 # FROM choochootrain/python-gdal:python-3.12-gdal-3.9
-FROM ghcr.io/osgeo/gdal:ubuntu-small-3.11.0
+FROM ghcr.io/osgeo/gdal:ubuntu-full-3.11.0
 
 RUN apt update && apt install python3-pip -y \
     && pip install numpy rasterio pymodis geopandas requests dotenv \
