@@ -1,0 +1,29 @@
+name: MODIS Processing (Indonesia)
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 3 1 * *'  # Bulanan setiap tgl 1 jam 3 pagi
+
+jobs:
+  modis-processing:
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/${{ github.repository }}/modis-processor:latest
+      credentials:
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+    env:
+      MODIS_USER: ${{ secrets.MODIS_USER }}
+      MODIS_PASS: ${{ secrets.MODIS_PASS }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run MODIS processing script
+        run: python process_modis_indonesia.py
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: stacked_modis_indonesia
+          path: modis_data/stacked_ndvi_evi_indonesia.tif
