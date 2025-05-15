@@ -1,8 +1,7 @@
 # FROM choochootrain/python-gdal:python-3.12-gdal-3.9
-FROM ghcr.io/osgeo/gdal:alpine-small-3.11.0
+FROM ghcr.io/osgeo/gdal:ubuntu-small-3.11.0
 
-RUN apk add --update py-pip && \
-    pip install numpy rasterio pymodis geopandas requests dotenv --break-system-packages
+RUN pip install numpy rasterio pymodis geopandas requests dotenv
 
 WORKDIR /app
 
