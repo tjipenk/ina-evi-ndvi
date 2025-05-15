@@ -19,12 +19,11 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-      - name: Run MODIS processing script
-        run: python process_modis_indonesia.py
-
       - run: printenv
       - run: echo ${{ env.MODIS_USER }}
       - run: echo ${{ env.MODIS_PASS }}
+      - name: Run MODIS processing script
+        run: python process_modis_indonesia.py
 
 
       - uses: actions/upload-artifact@v4
