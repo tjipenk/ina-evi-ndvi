@@ -1,3 +1,4 @@
+from json import load
 import os
 import glob
 import requests
@@ -7,6 +8,9 @@ import rasterio
 from rasterio.merge import merge
 from rasterio.mask import mask
 import geopandas as gpd
+
+from dotenv import load_dotenv
+load_dotenv()
 
 MODIS_USER = os.environ['MODIS_USER']
 MODIS_PASS = os.environ['MODIS_PASS']
@@ -80,7 +84,7 @@ if __name__ == "__main__":
     os.makedirs(download_folder, exist_ok=True)
 
     tiles = ['h27v08', 'h28v08', 'h28v09', 'h29v08', 'h29v09']  # Cakupan wilayah Indonesia
-    dates = '2024-01-01'  # Sesuaikan tanggal
+    dates = '2025-01-01'  # Sesuaikan tanggal
 
     # Unduh MODIS Data
     download_modis(download_folder, ','.join(tiles), dates)
