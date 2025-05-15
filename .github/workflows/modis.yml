@@ -1,0 +1,35 @@
+name: MODIS Processing
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 3 1 * *'  # Bulanan pada tanggal 1, jam 03:00
+
+jobs:
+  modis-processing:
+    runs-on: ubuntu-latest
+    env:
+      MODIS_USER: ${{ secrets.MODIS_USER }}
+      MODIS_PASS: ${{ secrets.MODIS_PASS }}
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+
+    - name: Install dependencies
+      run: |
+        pip install numpy rasterio pymodis requests
+
+    - name: Run MODIS processing script
+      run: |
+        python process_modis.py
+
+    - name: Upload artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: modis-stacked-output
+        path: ./modis_data/stacked_ndvi_evi.tif
