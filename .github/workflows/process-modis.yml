@@ -1,4 +1,4 @@
-name: MODIS Processing (Indonesia)
+name: Docker MODIS Processing Indonesia
 
 on:
   workflow_dispatch:
