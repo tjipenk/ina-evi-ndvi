@@ -18,8 +18,8 @@ Ada dua cara untuk menentukan area yang akan diunduh:
 ### 1. Menggunakan Tile MODIS
 
 ```bash
-python download_modis.py --username YOUR_USERNAME \
-                        --password YOUR_PASSWORD \
+python download_modis.py --username ${MODIS_USER}$ \
+                        --password ${MODIS_PASS}$ \
                         --start-date 2023-01-01 \
                         --end-date 2023-12-31 \
                         --tiles h27v08 h28v08 \
