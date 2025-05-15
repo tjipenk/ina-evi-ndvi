@@ -12,8 +12,11 @@ import geopandas as gpd
 from dotenv import load_dotenv
 load_dotenv()
 
-MODIS_USER = os.environ['MODIS_USER']
-MODIS_PASS = os.environ['MODIS_PASS']
+MODIS_USER = os.environ.get['MODIS_USER']
+MODIS_PASS = os.environ.get['MODIS_PASS']
+
+print("User MODIS:", modis_user)
+print("Pass MODIS:", '*' * len(modis_pass))  
 
 def download_modis(destination_folder, tiles, dates):
     url = 'https://e4ftl01.cr.usgs.gov/MOLT/MOD13Q1.061/'
