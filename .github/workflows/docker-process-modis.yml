@@ -20,8 +20,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: printenv
-      - run: echo ${{ env.MODIS_USER }}
-      - run: echo ${{ env.MODIS_PASS }}
+      - run: echo ${{ secrets.MODIS_USER }}
+      - run: echo ${{ secrets.MODIS_PASS }}
       - name: Run MODIS processing script
         run: python process_modis_indonesia.py
 
