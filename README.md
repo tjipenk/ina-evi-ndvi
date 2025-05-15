@@ -18,8 +18,8 @@ Ada dua cara untuk menentukan area yang akan diunduh:
 ### 1. Menggunakan Tile MODIS
 
 ```bash
-python download_modis.py --username ${MODIS_USER}$ \
-                        --password ${MODIS_PASS}$ \
+python download_modis.py --username ${MODIS_USER} \
+                        --password ${MODIS_PASS} \
                         --start-date 2023-01-01 \
                         --end-date 2023-12-31 \
                         --tiles h27v08 h28v08 \
@@ -37,6 +37,16 @@ python download_modis.py --username YOUR_USERNAME \
                         --output-dir modis_data
 ```
 
+### 3. gunakan modis_downloader.py
+```bash
+python modis_downloader.py --username YOUR_USERNAME \
+                        --password YOUR_PASSWORD \
+                        --start-date 2023-01-01 \
+                        --end-date 2023-12-31 \
+                        --tiles h27v08 h28v08 \
+                        --output-dir modis_data
+
+```
 ### Parameter
 
 - `--username`: Username akun NASA Earthdata
