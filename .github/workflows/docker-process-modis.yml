@@ -21,9 +21,7 @@ jobs:
       - uses: actions/checkout@v4
       - name: Run MODIS processing script
         run: python process_modis_indonesia.py
-        -env:
-          MODIS_USER: ${{ secrets.MODIS_USER }}
-          MODIS_PASS: ${{ secrets.MODIS_PASS }}
+
       - run: printenv
       - run: echo ${{ env.MODIS_USER }}
       - run: echo ${{ env.MODIS_PASS }}
