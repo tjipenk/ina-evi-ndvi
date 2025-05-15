@@ -19,8 +19,8 @@ print("User MODIS:", MODIS_USER)
 print("Pass MODIS:", '*' * len(MODIS_PASS))  
 
 def download_modis(destination_folder, tiles, dates):
-    url = 'https://e4ftl01.cr.usgs.gov/MOLT/MOD13Q1.061/'
-    modis = downmodis.downModis(destination_folder, password=MODIS_PASS, user=MODIS_USER, url=url, tiles=tiles, today=dates, delta=1)
+    # url = 'https://e4ftl01.cr.usgs.gov/MOLT/MOD13Q1.061/'
+    modis = downmodis.downModis(destination_folder, password=MODIS_PASS, user=MODIS_USER, tiles=tiles, today=dates, delta=1, product="MOD13Q1.061")
     modis.connect()
     modis.downloadsAllDay()
 
