@@ -1,0 +1,34 @@
+name: Generate STAC and Publish
+
+on:
+  schedule:
+    - cron: '0 3 * * *'  # Setiap hari pukul 10:00 WIB
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repo
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+
+    - name: Generate STAC Items
+      run: |
+        pip install pystac
+        python generate_stac.py  # Script yang kamu buat untuk STAC JSON
+
+    - name: Commit ke gh-pages
+      run: |
+        git config user.name github-actions
+        git config user.email github-actions@github.com
+        git checkout gh-pages
+        cp -r stac/* .
+        git add .
+        git commit -m "Update STAC catalog on $(date -u)"
+        git push
