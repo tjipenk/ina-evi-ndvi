@@ -3,7 +3,7 @@ import os
 import glob
 import requests
 import tempfile
-from pymodis import downmodis
+from pymodis import downmodis, convertmodis_gdal
 import rasterio
 from rasterio.merge import merge
 from rasterio.mask import mask
@@ -33,6 +33,12 @@ def extract_band(hdf_path, band_name, output_path):
 
         with rasterio.open(output_path, 'w', **profile) as dst:
             dst.write(band_data, 1)
+
+def extract_band_modis_gdal(hdf_path, band_name, output_path):
+    print(f"Ekstraksi {band_name} dari {hdf_path} ke {output_path}")
+    modisConver = convertmodis_gdal.convertModisGDAL(hdfname=hdf_path,prefix=output_path,res=0, wkt="WGS84", subset=band_name)
+    modisConver.run()
+
 
 def merge_images(image_paths, output_path):
     sources = [rasterio.open(img) for img in image_paths]
@@ -103,8 +109,8 @@ if __name__ == "__main__":
         evi_path = os.path.join(download_folder, f'{basename}_evi.tif')
 
         # Ekstraksi band NDVI & EVI dari MOD13Q1
-        extract_band(hdf, '250m 16 days NDVI', ndvi_path)
-        extract_band(hdf, '250m 16 days EVI', evi_path)
+        extract_band_modis_gdal(hdf, '250m 16 days NDVI', ndvi_path)
+        extract_band_modis_gdal(hdf, '250m 16 days EVI', evi_path)
 
         ndvi_files.append(ndvi_path)
         evi_files.append(evi_path)
