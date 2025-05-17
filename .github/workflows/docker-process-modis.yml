@@ -48,20 +48,11 @@ jobs:
       - name: Run MODIS processing script
         run: python process_modis_indonesia.py
 
-      - name: Upload NDVI artifact
+      - name: Upload all artifact
         uses: actions/upload-artifact@v4
         with:
-          name: indonesia_ndvi_${{ steps.date.outputs.today }}
-          path: modis_data/merged_ndvi.tif
-
-      - name: Upload EVI artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: indonesia_evi_${{ steps.date.outputs.today }}
-          path: modis_data/merged_evi.tif
-
-      - name: Upload DOY artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: indonesia_doy_${{ steps.date.outputs.today }}
-          path: modis_data/merged_doy.tif
+          name: indonesia_modis_${{ steps.date.outputs.today }}
+          path: |
+            modis_data/merged_ndvi.tif
+            modis_data/merged_evi.tif
+            modis_data/merged_doy.tif
