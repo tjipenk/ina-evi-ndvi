@@ -40,6 +40,10 @@ jobs:
       MODIS_PASS: ${{ secrets.MODIS_PASS }}
 
     steps:
+      - name: Set today date
+        id: date
+        run: echo "today=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
+
       - uses: actions/checkout@v4
       - name: Run MODIS processing script
         run: python process_modis_indonesia.py
