@@ -1,3 +1,4 @@
+import datetime
 from json import load
 import os
 import glob
@@ -94,8 +95,10 @@ if __name__ == "__main__":
     boundary_geojson_url = 'https://geodata.ucdavis.edu/gadm/gadm4.1/json/gadm41_IDN_0.json'
     os.makedirs(download_folder, exist_ok=True)
 
-    tiles = ['h27v08', 'h28v08', 'h28v09', 'h29v08', 'h29v09', 'h30v08', 'h30v09']  # Cakupan wilayah Indonesia
+    tiles = ['h27v08', 'h28v08', 'h28v09', 'h29v08', 'h29v09', 'h30v08', 'h30v09', 'h31v08', 'h31v09']  # Cakupan wilayah Indonesia
     dates = '2025-01-01'  # Sesuaikan tanggal
+    #get today
+    dates = datetime.datetime.now().strftime('%Y-%m-%d')
 
     # Unduh MODIS Data
     download_modis(download_folder, ','.join(tiles), dates)
@@ -132,7 +135,7 @@ if __name__ == "__main__":
     merge_images(doy_files, merged_doy)
 
 
-    stacked_output = os.path.join(download_folder, 'stacked_ndvi_evi_doy_indonesia.tif')
-    stack_and_clip(merged_ndvi, merged_evi, merged_doy, boundary_geojson_url, stacked_output)
+    # stacked_output = os.path.join(download_folder, 'stacked_ndvi_evi_doy_indonesia.tif')
+    # stack_and_clip(merged_ndvi, merged_evi, merged_doy, boundary_geojson_url, stacked_output)
 
     print("✅ Proses selesai. Output:", merged_ndvi, merged_evi, merged_doy, stacked_output)
