@@ -26,4 +26,4 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: stacked_modis_indonesia
-          path: modis_data/stacked_ndvi_evi_indonesia.tif
+          path: modis_data/stacked_ndvi_evi_doy_indonesia.tif
