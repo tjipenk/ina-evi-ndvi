@@ -30,8 +30,15 @@ jobs:
       run: |
         git config user.name tjipenk
         git config user.email tjipenk@gmail.com
-        git checkout gh-pages
+        git fetch origin
+        git checkout gh-pages || git checkout --orphan gh-pages
+
+        rm -rf *
+
+        # Salin hasil STAC dari direktori kerja build
         cp -r stac/* .
+
+        # Tambah, commit, dan push
         git add .
-        git commit -m "Update STAC catalog on $(date -u)"
-        git push
+        git commit -m "🔄 Update STAC catalog on $(date -u)" || echo "No changes to commit"
+        git push origin gh-pages
