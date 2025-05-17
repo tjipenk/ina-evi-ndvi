@@ -26,19 +26,27 @@ jobs:
         pip install pystac
         python generate_stac.py  # Script yang kamu buat untuk STAC JSON
 
-    - name: Commit ke gh-pages
+    - name: 🚀 Commit & Push to gh-pages
       run: |
-        git config user.name tjipenk
-        git config user.email tjipenk@gmail.com
-        git fetch origin
-        git checkout gh-pages || git checkout --orphan gh-pages
+        git config user.name 'tjipenk'
+        git config user.email 'tjipenk@gmail.com'
 
+        # Fetch semua branch, termasuk remote gh-pages jika sudah pernah dibuat
+        git fetch origin
+
+        # Cekout gh-pages jika ada, atau buat orphan branch jika belum
+        if git ls-remote --exit-code origin gh-pages; then
+          git checkout gh-pages
+        else
+          git checkout --orphan gh-pages
+        fi
+
+        # Hapus semua isi lama (hati-hati jika ada data penting)
         rm -rf *
 
-        # Salin hasil STAC dari direktori kerja build
+        # Salin file STAC hasil dari folder kerja
         cp -r stac/* .
 
-        # Tambah, commit, dan push
         git add .
-        git commit -m "🔄 Update STAC catalog on $(date -u)" || echo "No changes to commit"
-        git push origin gh-pages
+        git commit -m "🚀 Update STAC catalog on $(date -u)" || echo "🟡 No changes to commit"
+        git push origin gh-pages --force
