@@ -1,0 +1,35 @@
+stages:
+  - process
+
+modis_processing:
+  stage: process
+  image: python:3.11-slim
+  variables:
+    MODIS_USER: $MODIS_USER
+    MODIS_PASS: $MODIS_PASS
+  script:
+    - apt-get update && apt-get install -y gdal-bin libgdal-dev
+    - pip install numpy rasterio pymodis requests
+    - python process_modis.py
+  artifacts:
+    paths:
+      - modis_data/stacked_ndvi_evi.tif
+  only:
+    - schedules
+
+
+modis_processing_indonesia:
+  stage: process
+  image: python:3.11-slim
+  variables:
+    MODIS_USER: $MODIS_USER
+    MODIS_PASS: $MODIS_PASS
+  script:
+    - apt-get update && apt-get install -y gdal-bin libgdal-dev gcc
+    - pip install numpy rasterio pymodis geopandas requests
+    - python process_modis_indonesia.py
+  artifacts:
+    paths:
+      - modis_data/stacked_ndvi_evi_indonesia.tif
+  only:
+    - schedules

@@ -1,0 +1,49 @@
+name: Generate STAC and Publish
+
+on:
+  schedule:
+    - cron: '0 3 * * *'  # Setiap hari pukul 10:00 WIB
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repo
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+
+    - name: Generate STAC Items
+      run: |
+        pip install pystac
+        python generate_stac.py  # Script yang kamu buat untuk STAC JSON
+
+    - name: 🚀 Commit & Push to gh-pages
+      run: |
+        git config user.name 'tjipenk'
+        git config user.email 'tjipenk@gmail.com'
+
+        # Fetch semua branch, termasuk remote gh-pages jika sudah pernah dibuat
+        git fetch origin
+
+        # Cekout gh-pages jika ada, atau buat orphan branch jika belum
+        if git ls-remote --exit-code origin gh-pages; then
+          git checkout gh-pages
+        else
+          git checkout --orphan gh-pages
+        fi
+
+        # Salin file STAC hasil dari folder kerja
+        cp -r stac/* .
+
+        git add .
+        git commit -m "🚀 Update STAC catalog on $(date -u)" || echo "🟡 No changes to commit"
+        git push origin gh-pages --force

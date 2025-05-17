@@ -1,0 +1,58 @@
+name: Docker MODIS Processing Indonesia
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 3 8 1 *'    # 08 Jan
+    - cron: '0 3 24 1 *'   # 24 Jan
+    - cron: '0 3 9 2 *'    # 09 Feb
+    - cron: '0 3 25 2 *'   # 25 Feb
+    - cron: '0 3 12 3 *'   # 12 Mar
+    - cron: '0 3 28 3 *'   # 28 Mar
+    - cron: '0 3 13 4 *'   # 13 Apr
+    - cron: '0 3 29 4 *'   # 29 Apr
+    - cron: '0 3 15 5 *'   # 15 May
+    - cron: '0 3 31 5 *'   # 31 May
+    - cron: '0 3 16 6 *'   # 16 Jun
+    - cron: '0 3 2 7 *'    # 02 Jul
+    - cron: '0 3 18 7 *'   # 18 Jul
+    - cron: '0 3 3 8 *'    # 03 Aug
+    - cron: '0 3 19 8 *'   # 19 Aug
+    - cron: '0 3 4 9 *'    # 04 Sep
+    - cron: '0 3 20 9 *'   # 20 Sep
+    - cron: '0 3 6 10 *'   # 06 Oct
+    - cron: '0 3 22 10 *'  # 22 Oct
+    - cron: '0 3 7 11 *'   # 07 Nov
+    - cron: '0 3 23 11 *'  # 23 Nov
+    - cron: '0 3 9 12 *'   # 09 Dec
+    - cron: '0 3 25 12 *'  # 25 Dec
+
+jobs:
+  modis-processing:
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/${{ github.repository }}/modis-processor:latest
+      credentials:
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+    env:
+      MODIS_USER: ${{ secrets.MODIS_USER }}
+      MODIS_PASS: ${{ secrets.MODIS_PASS }}
+
+    steps:
+      - name: Set today date
+        id: date
+        run: echo "today=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
+
+      - uses: actions/checkout@v4
+      - name: Run MODIS processing script
+        run: python process_modis_indonesia.py
+
+      - name: Upload all artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: indonesia_modis_${{ steps.date.outputs.today }}
+          path: |
+            modis_data/merged_ndvi.tif
+            modis_data/merged_evi.tif
+            modis_data/merged_doy.tif

@@ -1,0 +1,8 @@
+services:
+  app:
+    image: ghcr.io/tjipenk/ina-evi-ndvi/modis-processor:latest
+    env_file:
+      - .env
+    volumes:
+      # - ./modis_data:/app/modis_data
+      - .:/app

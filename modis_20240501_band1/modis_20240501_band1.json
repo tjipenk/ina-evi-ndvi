@@ -1,0 +1,63 @@
+{
+  "type": "Feature",
+  "stac_version": "1.1.0",
+  "stac_extensions": [],
+  "id": "modis_20240501_band1",
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          100.0,
+          -5.0
+        ],
+        [
+          105.0,
+          -5.0
+        ],
+        [
+          105.0,
+          -10.0
+        ],
+        [
+          100.0,
+          -10.0
+        ],
+        [
+          100.0,
+          -5.0
+        ]
+      ]
+    ]
+  },
+  "bbox": [
+    100.0,
+    -10.0,
+    105.0,
+    -5.0
+  ],
+  "properties": {
+    "datetime": "2024-05-01T00:00:00Z"
+  },
+  "links": [
+    {
+      "rel": "root",
+      "href": "../catalog.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "parent",
+      "href": "../catalog.json",
+      "type": "application/json"
+    }
+  ],
+  "assets": {
+    "data": {
+      "href": "https://tjipenk.github.io/modis-stac/data/MODIS_20240501_Band1.tif",
+      "type": "image/tiff; application=geotiff; profile=cloud-optimized",
+      "roles": [
+        "data"
+      ]
+    }
+  }
+}
