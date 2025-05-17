@@ -5,6 +5,9 @@ on:
     - cron: '0 3 * * *'  # Setiap hari pukul 10:00 WIB
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
